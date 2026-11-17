@@ -116,6 +116,7 @@ The rules were written down before the first full run.
 ## Data and licences
 
 - **Code:** MIT, see [`LICENSE`](LICENSE).
+- **Models:** not included in this repo. They download from Hugging Face under their own licences. Gemma 4 E2B and Kev-4B are Apache-2.0. d1-2B uses Liquid AI's LFM Open License v1.0, which is free for research and for organisations under $10M annual revenue, and needs a separate agreement above that. Check the licence before you use a model.
 - **`data/boolq.jsonl`:** from BoolQ (Clark et al., NAACL 2019), licensed CC BY-SA 3.0. That file keeps its own licence, not the repo's.
 - **`data/sms-spam.jsonl`:** from the UCI SMS Spam Collection (Almeida et al., DocEng 2011), CC BY 4.0.
 - **`data/fresh-news.jsonl`:** written for this project from web searches, with sources listed per question. It is for testing reading, not for quoting as news.
