@@ -1,4 +1,4 @@
-# BS Meter
+# Attempting to call BS on open weight decision models
 
 When a decision model says "92% sure", is it right 92% of the time? BS Meter is a command-line tool that checks. It asks a model a few hundred yes/no questions with known answers, then compares how confident each answer was with how often it was right, and writes one self-contained HTML report with charts, error bars and a plain verdict: overconfident, underconfident or honest.
 
