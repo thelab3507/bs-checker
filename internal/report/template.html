@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{.Title}}</title>
+<link rel="icon" href="data:,">
+<style>{{.FontCSS}}</style>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #fcfcfb;
+  --card: #ffffff;
+  --border: #e4e3de;
+  --grid: #e6e5e0;
+  --text: #0b0b0b;
+  --text-2: #52514e;
+  --text-3: #6b6a65;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+  --s5: #e87ba4; --s6: #008300; --s7: #6250d6; --s8: #e34948;
+  --good: #0ca30c; --warn: #fab219; --serious: #ec835a; --critical: #d03b3b;
+  --tint: #f3f2ee;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --bg: #1a1a19; --card: #20201f; --border: #333331; --grid: #333331;
+    --text: #f0efec; --text-2: #c3c2b7; --text-3: #9a998f; --tint: #272726;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+    --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1a1a19; --card: #20201f; --border: #333331; --grid: #333331;
+  --text: #f0efec; --text-2: #c3c2b7; --text-3: #9a998f; --tint: #272726;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+  --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", sans-serif;
+  font-size: 16px; line-height: 1.55;
+}
+.wrap { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
+h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 8px; letter-spacing: -0.01em; }
+h2 { font-size: 1.35rem; margin: 48px 0 12px; letter-spacing: -0.005em; }
+h3 { font-size: 1.1rem; margin: 32px 0 4px; }
+h4 { font-size: 1rem; margin: 0; }
+p { margin: 0 0 8px; }
+.meta, .sub, .help, .caption { color: var(--text-2); font-size: 0.875rem; }
+.note {
+  background: var(--tint); border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 12px; margin: 12px 0; font-weight: 600;
+}
+code, .mono { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 0.875em; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin: 12px 0; }
+.headline .sentence { font-size: 1.25rem; font-weight: 700; line-height: 1.35; margin: 2px 0 4px; }
+.headline .where { color: var(--text-2); font-size: 0.875rem; margin: 0; }
+.headline a { color: inherit; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.875rem;
+  padding: 2px 10px 2px 8px; border-radius: 999px; background: var(--tint); border: 1px solid var(--border);
+}
+.badge::before { content: ""; width: 10px; height: 10px; background: var(--text-3); }
+.badge.overconfident::before { background: var(--serious); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.badge.underconfident::before { background: var(--warn); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.badge.honest::before { background: var(--good); border-radius: 50%; }
+.badge.too-few::before { background: transparent; border: 2px solid var(--text-3); border-radius: 50%; }
+
+.run-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.key { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+
+dl.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px 24px; margin: 16px 0; }
+dl.metrics div { min-width: 0; }
+dl.metrics dt { font-size: 0.8125rem; color: var(--text-2); }
+dl.metrics dd { margin: 0; font-weight: 700; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+dl.metrics dd small { display: block; font-weight: 400; font-size: 0.8125rem; color: var(--text-2); }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+th { color: var(--text-2); font-weight: 600; }
+td.num, th.num { text-align: right; white-space: nowrap; }
+.scroll { overflow-x: auto; }
+
+.chart-wrap { overflow-x: auto; margin: 8px 0 0; }
+svg.chart { display: block; width: 100%; min-width: 560px; height: auto; }
+svg.danger { display: block; width: 100%; min-width: 340px; max-width: 520px; height: auto; }
+svg .axis { font-size: 11px; fill: var(--text-3); font-family: inherit; }
+svg .grid { stroke: var(--grid); stroke-width: 1; }
+svg .claim { stroke: var(--text); stroke-width: 1.5; }
+svg .tick { stroke: var(--text-2); stroke-width: 2; stroke-linecap: round; }
+svg .gap, svg .range { stroke-width: 2; stroke-linecap: round; }
+svg .range { stroke: var(--text-2); }
+svg .dot { stroke: var(--card); stroke-width: 2; }
+svg .dot.hollow { fill: var(--card); stroke-width: 2.5; }
+.fill-s1 { fill: var(--s1); } .fill-s2 { fill: var(--s2); } .fill-s3 { fill: var(--s3); } .fill-s4 { fill: var(--s4); }
+.fill-s5 { fill: var(--s5); } .fill-s6 { fill: var(--s6); } .fill-s7 { fill: var(--s7); } .fill-s8 { fill: var(--s8); }
+svg .line-s1 { stroke: var(--s1); } svg .line-s2 { stroke: var(--s2); } svg .line-s3 { stroke: var(--s3); } svg .line-s4 { stroke: var(--s4); }
+svg .line-s5 { stroke: var(--s5); } svg .line-s6 { stroke: var(--s6); } svg .line-s7 { stroke: var(--s7); } svg .line-s8 { stroke: var(--s8); }
+.bg-s1 { background: var(--s1); } .bg-s2 { background: var(--s2); } .bg-s3 { background: var(--s3); } .bg-s4 { background: var(--s4); }
+.bg-s5 { background: var(--s5); } .bg-s6 { background: var(--s6); } .bg-s7 { background: var(--s7); } .bg-s8 { background: var(--s8); }
+
+details { margin: 8px 0; }
+summary { cursor: pointer; color: var(--text-2); font-size: 0.875rem; }
+details table { margin: 8px 0 16px; }
+.warnings { margin: 12px 0 0; padding: 0 0 0 20px; color: var(--text-2); font-size: 0.875rem; }
+.section-label { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-2); margin: 20px 0 4px; }
+
+@media (max-width: 560px) {
+  h1 { font-size: 1.5rem; }
+  .card { padding: 12px; }
+}
+@media print {
+  body { background: #fff; color: #000; }
+  .card { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>{{.Title}}</h1>
+  {{if .Note}}<p class="note">{{.Note}}</p>{{end}}
+  <p class="meta">Seed {{.Seed}} · {{.Resamples}} bootstrap resamples · every interval is a 95% interval</p>
+</header>
+
+<main>
+<section id="answer">
+  <h2>The answer</h2>
+  <p class="help">Is each model's confidence honest? One verdict per run, from the gap between how sure it said it was and how often it was right.</p>
+  {{range .Answers}}
+  <article class="card headline" data-answer="{{.Key}}">
+    <p class="where"><a href="#{{.Link}}">{{.Where}}</a></p>
+    <p class="sentence"><span class="key bg-{{.Class}}"></span>{{.Quant}} <span class="badge {{.Key}}">{{.Label}}</span></p>
+    <p class="help">{{.Detail}}</p>
+  </article>
+  {{end}}
+  {{if .Warnings}}
+  <ul class="warnings">{{range .Warnings}}<li>{{.}}</li>{{end}}</ul>
+  {{end}}
+</section>
+
+{{range .Sets}}
+<section class="set" data-set="{{.Name}}">
+  <h2>Question set: {{.Name}}</h2>
+  {{range .Blocks}}
+  <div class="block" id="{{.Anchor}}">
+    <h3>{{.Model}} <span class="sub">on {{.Host}} · {{.Method}}</span></h3>
+
+    {{range .Runs}}
+    <article class="card run" id="{{.ID}}" data-run="{{.Model}} | {{.Quant}} | {{.Host}} | {{.Set}}">
+      <div class="run-head">
+        <h4><span class="key bg-{{.Class}}"></span>{{.Quant}}</h4>
+        <span class="badge {{.Verdict.Key}}">{{.Verdict.Label}}</span>
+      </div>
+      <p class="help" style="margin-top:6px">{{.Verdict.Detail}}</p>
+
+      <dl class="metrics">
+        {{range .Metrics}}
+        <div><dt title="{{.Help}}">{{.Name}}</dt><dd>{{.Value}}<small>{{.Interval}}</small></dd></div>
+        {{end}}
+      </dl>
+
+      <p class="section-label">Reliability</p>
+      <div class="chart-wrap">{{.Chart}}</div>
+      <p class="caption">Dot: how often it was right. Tick: how sure it said it was. A dot below its tick is overconfidence. Hollow dots have under 10 answers; the row under the bands is the number of answers.</p>
+      <details>
+        <summary>Band data</summary>
+        {{range .Tables}}
+        <div class="scroll"><table>
+          <caption class="help" style="text-align:left;padding:4px 8px">{{.Title}}</caption>
+          <thead><tr><th>Confidence</th><th class="num">Answers</th><th class="num">Mean confidence</th><th class="num">Right</th></tr></thead>
+          <tbody>{{range .Rows}}<tr><td>{{.Range}}</td><td class="num">{{.N}}</td><td class="num">{{.Mean}}</td><td class="num">{{.Hit}}</td></tr>{{end}}</tbody>
+        </table></div>
+        {{end}}
+      </details>
+
+      <p class="section-label">The danger zone</p>
+      <p>{{.Danger.Sentence}}</p>
+      {{if .Danger.Chart}}<div class="chart-wrap">{{.Danger.Chart}}</div>
+      <p class="caption">The dot is how often it was right; the line is its 95% interval. The black line is the confidence it claimed. A dot to its left is overconfidence.</p>{{end}}
+
+      <p class="section-label">After a simple correction</p>
+      {{if .Correction.Rows}}
+      <div class="scroll"><table>
+        <thead><tr><th>Measure, on the held-out half</th><th class="num">Before</th><th class="num">After</th><th>Change</th></tr></thead>
+        <tbody>{{range .Correction.Rows}}<tr><td>{{.Name}}</td><td class="num">{{.Before}}</td><td class="num">{{.After}}</td><td>{{.Change}}</td></tr>{{end}}</tbody>
+      </table></div>
+      <p class="caption">{{.Correction.Detail}}</p>
+      {{else}}
+      <p class="help">{{.Correction.Why}}</p>
+      {{end}}
+
+      {{if .Warnings}}<ul class="warnings">{{range .Warnings}}<li>{{.}}</li>{{end}}</ul>{{end}}
+    </article>
+    {{end}}
+  </div>
+  {{end}}
+</section>
+{{end}}
+
+<section id="method">
+  <h2>How to read this</h2>
+  <div class="card">
+    <p><strong>Calibration</strong> asks whether "90% sure" means right nine times in ten. <strong>Overconfident</strong> means the model claims more than it delivers; <strong>underconfident</strong> the reverse.</p>
+    <p><strong>The verdict</strong> comes from the gap, the model's average confidence minus its accuracy, and its 95% interval. An interval wholly above 0 is overconfident, wholly below 0 underconfident, and one that spans 0 is honest. There is no size cut-off, so the size is printed with every label. A run with under 100 answers or under 30 independent groups gets no verdict.</p>
+    <p><strong>Bands.</strong> Headline ECE uses {{.BandScheme}}. The charts use {{.FineBandScheme}}, because a model that is nearly always at 99.99% falls into a single headline band.</p>
+    <p><strong>Groups.</strong> Questions about one passage are not independent, so intervals resample whole groups. Grouping by set:
+      {{range .ClusterBy}}<span class="mono">{{.Key}}</span> by {{.Value}}; {{end}}</p>
+    <p><strong>Caveats.</strong> ECE can never be below 0, so its own interval leans high when there are few answers; use the verdict's interval rather than the bare ECE. A correction rescales confidence and never changes which answer a model gives. d1's own probabilities are already scaled by its vendor, so its correction is a second scaling.</p>
+  </div>
+</section>
+</main>
+</div>
+</body>
+</html>

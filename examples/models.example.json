@@ -1,0 +1,8 @@
+{
+  "llama_server": "llama-server",
+  "models": [
+    {"label": "lfm2-d1-2b",    "quant": "Q4_K_M", "method": "systemone", "hf": "LiquidAI/d1-2B-GGUF:Q4_K_M",          "port": 9931},
+    {"label": "kev-4b",         "quant": "Q4_K_M", "method": "systemone", "hf": "ggml-org/Kev-4B-GGUF:Q4_K_M",        "port": 9931},
+    {"label": "gemma-4-e2b-it", "quant": "Q4_K_M", "method": "tokenprob", "hf": "unsloth/gemma-4-E2B-it-GGUF:Q4_K_M", "port": 9931}
+  ]
+}

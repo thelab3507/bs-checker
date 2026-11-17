@@ -1,0 +1,14 @@
+# Default outputs of bsmeter, so a stray run is never committed by accident.
+/results.jsonl
+/analysis.json
+/report.html
+/corrections/
+/csv/
+bsmeter-*.log
+
+# A machine-specific copy of models.json (for example a full llama-server path).
+models.local.json
+
+# Built binaries.
+/bsmeter
+/bsmeter.exe

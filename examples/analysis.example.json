@@ -1,0 +1,424 @@
+{
+  "format_version": 1,
+  "seed": 1234,
+  "bootstrap_resamples": 1000,
+  "band_scheme": "10 equal-width bands over [0.5, 1.0]",
+  "fine_band_scheme": "9 bands with cut points 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99, 0.999, 0.9999, 1",
+  "cluster_by": {
+    "hand20": "qid"
+  },
+  "runs": [
+    {
+      "model": "gemma-4-e2b-it",
+      "quant": "Q4_K_M",
+      "host": "mac-metal",
+      "method": "tokenprob",
+      "set": "hand20",
+      "n": 20,
+      "n_clusters": 20,
+      "accuracy": {
+        "value": 0.95,
+        "ci95": [
+          0.85,
+          1
+        ]
+      },
+      "ece": {
+        "value": 0.049862419,
+        "ci95": [
+          1.629e-06,
+          0.149822588
+        ]
+      },
+      "ece_fine": {
+        "value": 0.049867323,
+        "ci95": [
+          8.34e-07,
+          0.149826944
+        ]
+      },
+      "brier": {
+        "value": 0.04988325,
+        "ci95": [
+          0,
+          0.149649633
+        ]
+      },
+      "log_loss": {
+        "value": 0.337644213,
+        "ci95": [
+          1.193e-06,
+          1.012849747
+        ]
+      },
+      "gap": {
+        "value": 0.049862419,
+        "ci95": [
+          -0.000230813,
+          0.149822956
+        ]
+      },
+      "bands": [
+        {
+          "lo": 0.5,
+          "hi": 0.55,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.55,
+          "hi": 0.6,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.65,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.65,
+          "hi": 0.7,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.75,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.75,
+          "hi": 0.8,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.85,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.85,
+          "hi": 0.9,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.95,
+          "hi": 1,
+          "n": 20,
+          "mean_conf": 0.999862419,
+          "hit_rate": 0.95
+        }
+      ],
+      "bands_fine": [
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.95,
+          "hi": 0.99,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.99,
+          "hi": 0.999,
+          "n": 2,
+          "mean_conf": 0.99864871,
+          "hit_rate": 0.5
+        },
+        {
+          "lo": 0.999,
+          "hi": 0.9999,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.9999,
+          "hi": 1,
+          "n": 18,
+          "mean_conf": 0.999997276,
+          "hit_rate": 1
+        }
+      ],
+      "danger_zone": {
+        "threshold": 0.95,
+        "n": 20,
+        "wrong": 1,
+        "hit_rate": 0.95,
+        "ci95": [
+          0.85,
+          1
+        ]
+      },
+      "correction": null,
+      "low_mass_n": 0,
+      "warnings": [
+        "only 20 answers; bands are sparse and intervals wide",
+        "only 20 clusters; bootstrap intervals are approximate",
+        "only 10 answers in the fit half (need 50); no correction fitted"
+      ]
+    },
+    {
+      "model": "lfm2-d1-2b",
+      "quant": "Q4_K_M",
+      "host": "mac-metal",
+      "method": "systemone",
+      "set": "hand20",
+      "n": 20,
+      "n_clusters": 20,
+      "accuracy": {
+        "value": 1,
+        "ci95": [
+          1,
+          1
+        ]
+      },
+      "ece": {
+        "value": 0.039046337,
+        "ci95": [
+          0.019187392,
+          0.066403153
+        ]
+      },
+      "ece_fine": {
+        "value": 0.039046337,
+        "ci95": [
+          0.017924147,
+          0.067868435
+        ]
+      },
+      "brier": {
+        "value": 0.004704534,
+        "ci95": [
+          0.0008162,
+          0.011361081
+        ]
+      },
+      "log_loss": {
+        "value": 0.041764094,
+        "ci95": [
+          0.020076726,
+          0.072452334
+        ]
+      },
+      "gap": {
+        "value": -0.039046337,
+        "ci95": [
+          -0.067640582,
+          -0.018449847
+        ]
+      },
+      "bands": [
+        {
+          "lo": 0.5,
+          "hi": 0.55,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.55,
+          "hi": 0.6,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.65,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.65,
+          "hi": 0.7,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.75,
+          "n": 1,
+          "mean_conf": 0.749948551,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.75,
+          "hi": 0.8,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.85,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.85,
+          "hi": 0.9,
+          "n": 1,
+          "mean_conf": 0.897283212,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 3,
+          "mean_conf": 0.928198083,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.95,
+          "hi": 1,
+          "n": 15,
+          "mean_conf": 0.985816484,
+          "hit_rate": 1
+        }
+      ],
+      "bands_fine": [
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 1,
+          "mean_conf": 0.749948551,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 1,
+          "mean_conf": 0.897283212,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 3,
+          "mean_conf": 0.928198083,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.95,
+          "hi": 0.99,
+          "n": 6,
+          "mean_conf": 0.97372683,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.99,
+          "hi": 0.999,
+          "n": 9,
+          "mean_conf": 0.993876253,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.999,
+          "hi": 0.9999,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.9999,
+          "hi": 1,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        }
+      ],
+      "danger_zone": {
+        "threshold": 0.95,
+        "n": 15,
+        "wrong": 0,
+        "hit_rate": 1,
+        "ci95": [
+          1,
+          1
+        ]
+      },
+      "correction": null,
+      "low_mass_n": 0,
+      "warnings": [
+        "only 20 answers; bands are sparse and intervals wide",
+        "only 20 clusters; bootstrap intervals are approximate",
+        "no wrong answers among the 15 at 95% or more; the interval collapses to 1, but the true error rate could still be about 20.0% (rule of three)",
+        "only 10 answers in the fit half (need 50); no correction fitted"
+      ]
+    }
+  ],
+  "warnings": []
+}

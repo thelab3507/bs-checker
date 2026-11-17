@@ -1,0 +1,227 @@
+{
+  "format_version": 1,
+  "note": "Illustrative: computed from examples/results.example.jsonl (20 questions per run), too small to mean anything.",
+  "seed": 1234,
+  "bootstrap_resamples": 1000,
+  "band_scheme": "10 equal-width bands over [0.5, 1.0]",
+  "runs": [
+    {
+      "model": "gemma-4-e2b-it",
+      "quant": "Q4_K_M",
+      "host": "mac-metal",
+      "method": "tokenprob",
+      "set": "hand20",
+      "n": 20,
+      "accuracy": {
+        "value": 0.95,
+        "ci95": [
+          0.85,
+          1.0
+        ]
+      },
+      "ece": {
+        "value": 0.049862,
+        "ci95": [
+          1e-06,
+          0.14982
+        ]
+      },
+      "bands": [
+        {
+          "lo": 0.5,
+          "hi": 0.55,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.55,
+          "hi": 0.6,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.65,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.65,
+          "hi": 0.7,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.75,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.75,
+          "hi": 0.8,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.85,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.85,
+          "hi": 0.9,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.95,
+          "hi": 1.0,
+          "n": 20,
+          "mean_conf": 0.999862,
+          "hit_rate": 0.95
+        }
+      ],
+      "danger_zone": {
+        "threshold": 0.95,
+        "n": 20,
+        "hit_rate": 0.95
+      },
+      "correction": {
+        "method": "temperature",
+        "params": {
+          "T": 0.316228
+        },
+        "fit_n": 10,
+        "eval_n": 10,
+        "ece_before": 0.09973,
+        "ece_after": 0.1
+      }
+    },
+    {
+      "model": "lfm2-d1-2b",
+      "quant": "Q4_K_M",
+      "host": "mac-metal",
+      "method": "systemone",
+      "set": "hand20",
+      "n": 20,
+      "accuracy": {
+        "value": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "ece": {
+        "value": 0.039047,
+        "ci95": [
+          0.017846,
+          0.065808
+        ]
+      },
+      "bands": [
+        {
+          "lo": 0.5,
+          "hi": 0.55,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.55,
+          "hi": 0.6,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.65,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.65,
+          "hi": 0.7,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.75,
+          "n": 1,
+          "mean_conf": 0.749949,
+          "hit_rate": 1.0
+        },
+        {
+          "lo": 0.75,
+          "hi": 0.8,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.85,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.85,
+          "hi": 0.9,
+          "n": 1,
+          "mean_conf": 0.897283,
+          "hit_rate": 1.0
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 3,
+          "mean_conf": 0.928198,
+          "hit_rate": 1.0
+        },
+        {
+          "lo": 0.95,
+          "hi": 1.0,
+          "n": 15,
+          "mean_conf": 0.985816,
+          "hit_rate": 1.0
+        }
+      ],
+      "danger_zone": {
+        "threshold": 0.95,
+        "n": 15,
+        "hit_rate": 1.0
+      },
+      "correction": {
+        "method": "temperature",
+        "params": {
+          "T": 0.316228
+        },
+        "fit_n": 10,
+        "eval_n": 10,
+        "ece_before": 0.044667,
+        "ece_after": 0.003066
+      }
+    }
+  ]
+}

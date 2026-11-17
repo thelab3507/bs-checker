@@ -1,0 +1,1933 @@
+{
+  "format_version": 1,
+  "seed": 1,
+  "bootstrap_resamples": 1000,
+  "band_scheme": "10 equal-width bands over [0.5, 1.0]",
+  "fine_band_scheme": "9 bands with cut points 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99, 0.999, 0.9999, 1",
+  "cluster_by": {
+    "boolq": "qid",
+    "fresh-news": "regexp ^news-(.+)-\\d+$",
+    "sms-spam": "qid"
+  },
+  "runs": [
+    {
+      "model": "gemma-4-e2b-it",
+      "quant": "Q4_K_M",
+      "host": "mac-metal",
+      "method": "tokenprob",
+      "set": "boolq",
+      "n": 600,
+      "n_clusters": 600,
+      "accuracy": {
+        "value": 0.721666667,
+        "ci95": [
+          0.686666667,
+          0.756666667
+        ]
+      },
+      "ece": {
+        "value": 0.25463881,
+        "ci95": [
+          0.22242496,
+          0.292542501
+        ]
+      },
+      "ece_fine": {
+        "value": 0.250772109,
+        "ci95": [
+          0.219549368,
+          0.286953762
+        ]
+      },
+      "brier": {
+        "value": 0.257361538,
+        "ci95": [
+          0.226027398,
+          0.29257853
+        ]
+      },
+      "log_loss": {
+        "value": 2.311285197,
+        "ci95": [
+          1.971894223,
+          2.689277357
+        ]
+      },
+      "gap": {
+        "value": 0.250375651,
+        "ci95": [
+          0.214628829,
+          0.285297101
+        ]
+      },
+      "bands": [
+        {
+          "lo": 0.5,
+          "hi": 0.55,
+          "n": 6,
+          "mean_conf": 0.531674544,
+          "hit_rate": 0.166666667
+        },
+        {
+          "lo": 0.55,
+          "hi": 0.6,
+          "n": 6,
+          "mean_conf": 0.584768385,
+          "hit_rate": 0.666666667
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.65,
+          "n": 5,
+          "mean_conf": 0.642488408,
+          "hit_rate": 0.8
+        },
+        {
+          "lo": 0.65,
+          "hi": 0.7,
+          "n": 4,
+          "mean_conf": 0.667155122,
+          "hit_rate": 0.5
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.75,
+          "n": 7,
+          "mean_conf": 0.720980902,
+          "hit_rate": 0.428571429
+        },
+        {
+          "lo": 0.75,
+          "hi": 0.8,
+          "n": 4,
+          "mean_conf": 0.772603864,
+          "hit_rate": 0
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.85,
+          "n": 9,
+          "mean_conf": 0.82122072,
+          "hit_rate": 0.555555556
+        },
+        {
+          "lo": 0.85,
+          "hi": 0.9,
+          "n": 13,
+          "mean_conf": 0.882241913,
+          "hit_rate": 0.615384615
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 13,
+          "mean_conf": 0.919736798,
+          "hit_rate": 0.384615385
+        },
+        {
+          "lo": 0.95,
+          "hi": 1,
+          "n": 533,
+          "mean_conf": 0.997545364,
+          "hit_rate": 0.752345216
+        }
+      ],
+      "bands_fine": [
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 12,
+          "mean_conf": 0.558221465,
+          "hit_rate": 0.416666667
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 9,
+          "mean_conf": 0.653451392,
+          "hit_rate": 0.666666667
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 11,
+          "mean_conf": 0.739752888,
+          "hit_rate": 0.272727273
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 22,
+          "mean_conf": 0.857278698,
+          "hit_rate": 0.590909091
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 13,
+          "mean_conf": 0.919736798,
+          "hit_rate": 0.384615385
+        },
+        {
+          "lo": 0.95,
+          "hi": 0.99,
+          "n": 45,
+          "mean_conf": 0.975580298,
+          "hit_rate": 0.666666667
+        },
+        {
+          "lo": 0.99,
+          "hi": 0.999,
+          "n": 52,
+          "mean_conf": 0.996472405,
+          "hit_rate": 0.634615385
+        },
+        {
+          "lo": 0.999,
+          "hi": 0.9999,
+          "n": 64,
+          "mean_conf": 0.999641332,
+          "hit_rate": 0.59375
+        },
+        {
+          "lo": 0.9999,
+          "hi": 1,
+          "n": 372,
+          "mean_conf": 0.999991815,
+          "hit_rate": 0.806451613
+        }
+      ],
+      "danger_zone": {
+        "threshold": 0.95,
+        "n": 533,
+        "wrong": 132,
+        "hit_rate": 0.752345216,
+        "ci95": [
+          0.71402214,
+          0.784926471
+        ]
+      },
+      "correction": {
+        "method": "temperature",
+        "params": {
+          "T": 9.526938374
+        },
+        "fit_n": 300,
+        "eval_n": 300,
+        "ece_before": 0.278007639,
+        "ece_after": 0.071350173,
+        "nll_before": 2.489479898,
+        "nll_after": 0.554244993
+      },
+      "low_mass_n": 0,
+      "warnings": []
+    },
+    {
+      "model": "gemma-4-e2b-it",
+      "quant": "Q4_K_M",
+      "host": "mac-metal",
+      "method": "tokenprob",
+      "set": "fresh-news",
+      "n": 201,
+      "n_clusters": 18,
+      "accuracy": {
+        "value": 0.960199005,
+        "ci95": [
+          0.939698492,
+          0.980295567
+        ]
+      },
+      "ece": {
+        "value": 0.037395842,
+        "ci95": [
+          0.018752562,
+          0.058760858
+        ]
+      },
+      "ece_fine": {
+        "value": 0.037469593,
+        "ci95": [
+          0.017004516,
+          0.059087067
+        ]
+      },
+      "brier": {
+        "value": 0.034660804,
+        "ci95": [
+          0.017880631,
+          0.052847567
+        ]
+      },
+      "log_loss": {
+        "value": 0.127330854,
+        "ci95": [
+          0.057061806,
+          0.206575059
+        ]
+      },
+      "gap": {
+        "value": 0.03342617,
+        "ci95": [
+          0.014521566,
+          0.052862048
+        ]
+      },
+      "bands": [
+        {
+          "lo": 0.5,
+          "hi": 0.55,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.55,
+          "hi": 0.6,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.65,
+          "n": 1,
+          "mean_conf": 0.601047995,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.65,
+          "hi": 0.7,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.75,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.75,
+          "hi": 0.8,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.85,
+          "n": 3,
+          "mean_conf": 0.813113411,
+          "hit_rate": 0.333333333
+        },
+        {
+          "lo": 0.85,
+          "hi": 0.9,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 3,
+          "mean_conf": 0.93252687,
+          "hit_rate": 0
+        },
+        {
+          "lo": 0.95,
+          "hi": 1,
+          "n": 194,
+          "mean_conf": 0.999385007,
+          "hit_rate": 0.984536082
+        }
+      ],
+      "bands_fine": [
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 1,
+          "mean_conf": 0.601047995,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 3,
+          "mean_conf": 0.813113411,
+          "hit_rate": 0.333333333
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 3,
+          "mean_conf": 0.93252687,
+          "hit_rate": 0
+        },
+        {
+          "lo": 0.95,
+          "hi": 0.99,
+          "n": 4,
+          "mean_conf": 0.97510862,
+          "hit_rate": 0.5
+        },
+        {
+          "lo": 0.99,
+          "hi": 0.999,
+          "n": 4,
+          "mean_conf": 0.996917214,
+          "hit_rate": 0.75
+        },
+        {
+          "lo": 0.999,
+          "hi": 0.9999,
+          "n": 16,
+          "mean_conf": 0.999574933,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.9999,
+          "hi": 1,
+          "n": 170,
+          "mean_conf": 0.999996407,
+          "hit_rate": 1
+        }
+      ],
+      "danger_zone": {
+        "threshold": 0.95,
+        "n": 194,
+        "wrong": 3,
+        "hit_rate": 0.984536082,
+        "ci95": [
+          0.967914439,
+          1
+        ]
+      },
+      "correction": {
+        "method": "temperature",
+        "params": {
+          "T": 3.122650025
+        },
+        "fit_n": 100,
+        "eval_n": 101,
+        "ece_before": 0.029645871,
+        "ece_after": 0.043301723,
+        "nll_before": 0.06556018,
+        "nll_after": 0.057710008
+      },
+      "low_mass_n": 0,
+      "warnings": [
+        "only 18 clusters; bootstrap intervals are approximate"
+      ]
+    },
+    {
+      "model": "gemma-4-e2b-it",
+      "quant": "Q4_K_M",
+      "host": "mac-metal",
+      "method": "tokenprob",
+      "set": "sms-spam",
+      "n": 500,
+      "n_clusters": 500,
+      "accuracy": {
+        "value": 0.89,
+        "ci95": [
+          0.862,
+          0.916
+        ]
+      },
+      "ece": {
+        "value": 0.100972656,
+        "ci95": [
+          0.077722462,
+          0.130308631
+        ]
+      },
+      "ece_fine": {
+        "value": 0.099638146,
+        "ci95": [
+          0.075456624,
+          0.126705262
+        ]
+      },
+      "brier": {
+        "value": 0.101990532,
+        "ci95": [
+          0.076611983,
+          0.126720452
+        ]
+      },
+      "log_loss": {
+        "value": 0.916484701,
+        "ci95": [
+          0.656186792,
+          1.195238834
+        ]
+      },
+      "gap": {
+        "value": 0.095870225,
+        "ci95": [
+          0.070860416,
+          0.124140841
+        ]
+      },
+      "bands": [
+        {
+          "lo": 0.5,
+          "hi": 0.55,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.55,
+          "hi": 0.6,
+          "n": 4,
+          "mean_conf": 0.58066813,
+          "hit_rate": 0.5
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.65,
+          "n": 3,
+          "mean_conf": 0.604903349,
+          "hit_rate": 0
+        },
+        {
+          "lo": 0.65,
+          "hi": 0.7,
+          "n": 1,
+          "mean_conf": 0.666372559,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.75,
+          "n": 2,
+          "mean_conf": 0.727071416,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.75,
+          "hi": 0.8,
+          "n": 6,
+          "mean_conf": 0.767312843,
+          "hit_rate": 0.833333333
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.85,
+          "n": 3,
+          "mean_conf": 0.835948931,
+          "hit_rate": 0.333333333
+        },
+        {
+          "lo": 0.85,
+          "hi": 0.9,
+          "n": 5,
+          "mean_conf": 0.875798514,
+          "hit_rate": 0.8
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 4,
+          "mean_conf": 0.934087188,
+          "hit_rate": 0.5
+        },
+        {
+          "lo": 0.95,
+          "hi": 1,
+          "n": 472,
+          "mean_conf": 0.998835063,
+          "hit_rate": 0.906779661
+        }
+      ],
+      "bands_fine": [
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 4,
+          "mean_conf": 0.58066813,
+          "hit_rate": 0.5
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 4,
+          "mean_conf": 0.620270652,
+          "hit_rate": 0.25
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 8,
+          "mean_conf": 0.757252486,
+          "hit_rate": 0.875
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 8,
+          "mean_conf": 0.86085492,
+          "hit_rate": 0.625
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 4,
+          "mean_conf": 0.934087188,
+          "hit_rate": 0.5
+        },
+        {
+          "lo": 0.95,
+          "hi": 0.99,
+          "n": 20,
+          "mean_conf": 0.980074883,
+          "hit_rate": 0.7
+        },
+        {
+          "lo": 0.99,
+          "hi": 0.999,
+          "n": 35,
+          "mean_conf": 0.996247889,
+          "hit_rate": 0.828571429
+        },
+        {
+          "lo": 0.999,
+          "hi": 0.9999,
+          "n": 46,
+          "mean_conf": 0.999659609,
+          "hit_rate": 0.804347826
+        },
+        {
+          "lo": 0.9999,
+          "hi": 1,
+          "n": 371,
+          "mean_conf": 0.999988231,
+          "hit_rate": 0.938005391
+        }
+      ],
+      "danger_zone": {
+        "threshold": 0.95,
+        "n": 472,
+        "wrong": 44,
+        "hit_rate": 0.906779661,
+        "ci95": [
+          0.880903491,
+          0.932346723
+        ]
+      },
+      "correction": {
+        "method": "temperature",
+        "params": {
+          "T": 4.895192277
+        },
+        "fit_n": 250,
+        "eval_n": 250,
+        "ece_before": 0.105316223,
+        "ece_after": 0.049479666,
+        "nll_before": 0.940304542,
+        "nll_after": 0.314171112
+      },
+      "low_mass_n": 2,
+      "warnings": [
+        "2 answers put under 90% of their probability on the answer tokens; the model may not be answering Yes/No"
+      ]
+    },
+    {
+      "model": "kev-4b",
+      "quant": "Q4_K_M",
+      "host": "mac-metal",
+      "method": "systemone",
+      "set": "boolq",
+      "n": 600,
+      "n_clusters": 600,
+      "accuracy": {
+        "value": 0.908333333,
+        "ci95": [
+          0.881666667,
+          0.93
+        ]
+      },
+      "ece": {
+        "value": 0.034565609,
+        "ci95": [
+          0.026617564,
+          0.058900255
+        ]
+      },
+      "ece_fine": {
+        "value": 0.026210125,
+        "ci95": [
+          0.01720433,
+          0.049350623
+        ]
+      },
+      "brier": {
+        "value": 0.06992252,
+        "ci95": [
+          0.056246547,
+          0.084146409
+        ]
+      },
+      "log_loss": {
+        "value": 0.242766801,
+        "ci95": [
+          0.202469673,
+          0.285544834
+        ]
+      },
+      "gap": {
+        "value": -0.020172319,
+        "ci95": [
+          -0.040164542,
+          0.001110324
+        ]
+      },
+      "bands": [
+        {
+          "lo": 0.5,
+          "hi": 0.55,
+          "n": 13,
+          "mean_conf": 0.524931849,
+          "hit_rate": 0.307692308
+        },
+        {
+          "lo": 0.55,
+          "hi": 0.6,
+          "n": 19,
+          "mean_conf": 0.578275143,
+          "hit_rate": 0.631578947
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.65,
+          "n": 20,
+          "mean_conf": 0.629619822,
+          "hit_rate": 0.65
+        },
+        {
+          "lo": 0.65,
+          "hi": 0.7,
+          "n": 17,
+          "mean_conf": 0.67292795,
+          "hit_rate": 0.823529412
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.75,
+          "n": 21,
+          "mean_conf": 0.724533284,
+          "hit_rate": 0.857142857
+        },
+        {
+          "lo": 0.75,
+          "hi": 0.8,
+          "n": 27,
+          "mean_conf": 0.779324128,
+          "hit_rate": 0.851851852
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.85,
+          "n": 47,
+          "mean_conf": 0.825166243,
+          "hit_rate": 0.872340426
+        },
+        {
+          "lo": 0.85,
+          "hi": 0.9,
+          "n": 53,
+          "mean_conf": 0.877242886,
+          "hit_rate": 0.849056604
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 98,
+          "mean_conf": 0.926956668,
+          "hit_rate": 0.959183673
+        },
+        {
+          "lo": 0.95,
+          "hi": 1,
+          "n": 285,
+          "mean_conf": 0.977816509,
+          "hit_rate": 0.985964912
+        }
+      ],
+      "bands_fine": [
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 32,
+          "mean_conf": 0.55660443,
+          "hit_rate": 0.5
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 37,
+          "mean_conf": 0.649518151,
+          "hit_rate": 0.72972973
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 48,
+          "mean_conf": 0.755353134,
+          "hit_rate": 0.854166667
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 100,
+          "mean_conf": 0.852766864,
+          "hit_rate": 0.86
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 98,
+          "mean_conf": 0.926956668,
+          "hit_rate": 0.959183673
+        },
+        {
+          "lo": 0.95,
+          "hi": 0.99,
+          "n": 233,
+          "mean_conf": 0.97444583,
+          "hit_rate": 0.982832618
+        },
+        {
+          "lo": 0.99,
+          "hi": 0.999,
+          "n": 52,
+          "mean_conf": 0.992919744,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.999,
+          "hi": 0.9999,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.9999,
+          "hi": 1,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        }
+      ],
+      "danger_zone": {
+        "threshold": 0.95,
+        "n": 285,
+        "wrong": 4,
+        "hit_rate": 0.985964912,
+        "ci95": [
+          0.971631206,
+          0.996721311
+        ]
+      },
+      "correction": {
+        "method": "temperature",
+        "params": {
+          "T": 0.787987239
+        },
+        "fit_n": 300,
+        "eval_n": 300,
+        "ece_before": 0.029858784,
+        "ece_after": 0.034769405,
+        "nll_before": 0.253780517,
+        "nll_after": 0.257467214
+      },
+      "low_mass_n": 0,
+      "warnings": []
+    },
+    {
+      "model": "kev-4b",
+      "quant": "Q4_K_M",
+      "host": "mac-metal",
+      "method": "systemone",
+      "set": "fresh-news",
+      "n": 201,
+      "n_clusters": 18,
+      "accuracy": {
+        "value": 0.995024876,
+        "ci95": [
+          0.984924623,
+          1
+        ]
+      },
+      "ece": {
+        "value": 0.052656514,
+        "ci95": [
+          0.044144298,
+          0.067608902
+        ]
+      },
+      "ece_fine": {
+        "value": 0.052656514,
+        "ci95": [
+          0.041372892,
+          0.067582421
+        ]
+      },
+      "brier": {
+        "value": 0.012564764,
+        "ci95": [
+          0.007862221,
+          0.017942511
+        ]
+      },
+      "log_loss": {
+        "value": 0.069231432,
+        "ci95": [
+          0.054853258,
+          0.08515782
+        ]
+      },
+      "gap": {
+        "value": -0.052656514,
+        "ci95": [
+          -0.067522293,
+          -0.03624877
+        ]
+      },
+      "bands": [
+        {
+          "lo": 0.5,
+          "hi": 0.55,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.55,
+          "hi": 0.6,
+          "n": 3,
+          "mean_conf": 0.583245321,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.65,
+          "n": 1,
+          "mean_conf": 0.605798086,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.65,
+          "hi": 0.7,
+          "n": 4,
+          "mean_conf": 0.680258665,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.75,
+          "n": 4,
+          "mean_conf": 0.730397372,
+          "hit_rate": 0.75
+        },
+        {
+          "lo": 0.75,
+          "hi": 0.8,
+          "n": 2,
+          "mean_conf": 0.776758565,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.85,
+          "n": 7,
+          "mean_conf": 0.829673542,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.85,
+          "hi": 0.9,
+          "n": 9,
+          "mean_conf": 0.877925786,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 25,
+          "mean_conf": 0.924926253,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.95,
+          "hi": 1,
+          "n": 146,
+          "mean_conf": 0.979672343,
+          "hit_rate": 1
+        }
+      ],
+      "bands_fine": [
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 3,
+          "mean_conf": 0.583245321,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 5,
+          "mean_conf": 0.665366549,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 6,
+          "mean_conf": 0.745851103,
+          "hit_rate": 0.833333333
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 16,
+          "mean_conf": 0.856815429,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 25,
+          "mean_conf": 0.924926253,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.95,
+          "hi": 0.99,
+          "n": 114,
+          "mean_conf": 0.975892531,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.99,
+          "hi": 0.999,
+          "n": 32,
+          "mean_conf": 0.993137922,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.999,
+          "hi": 0.9999,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.9999,
+          "hi": 1,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        }
+      ],
+      "danger_zone": {
+        "threshold": 0.95,
+        "n": 146,
+        "wrong": 0,
+        "hit_rate": 1,
+        "ci95": [
+          1,
+          1
+        ]
+      },
+      "correction": {
+        "method": "temperature",
+        "params": {
+          "T": 0.452500878
+        },
+        "fit_n": 105,
+        "eval_n": 96,
+        "ece_before": 0.066083662,
+        "ece_after": 0.017664553,
+        "nll_before": 0.073898798,
+        "nll_after": 0.019848022
+      },
+      "low_mass_n": 0,
+      "warnings": [
+        "only 18 clusters; bootstrap intervals are approximate",
+        "no wrong answers among the 146 at 95% or more; the interval collapses to 1, but the true error rate could still be about 2.1% (rule of three)"
+      ]
+    },
+    {
+      "model": "kev-4b",
+      "quant": "Q4_K_M",
+      "host": "mac-metal",
+      "method": "systemone",
+      "set": "sms-spam",
+      "n": 500,
+      "n_clusters": 500,
+      "accuracy": {
+        "value": 0.856,
+        "ci95": [
+          0.824,
+          0.888
+        ]
+      },
+      "ece": {
+        "value": 0.132692095,
+        "ci95": [
+          0.11600823,
+          0.163183143
+        ]
+      },
+      "ece_fine": {
+        "value": 0.132692095,
+        "ci95": [
+          0.112209833,
+          0.159981698
+        ]
+      },
+      "brier": {
+        "value": 0.118587598,
+        "ci95": [
+          0.107425387,
+          0.129004661
+        ]
+      },
+      "log_loss": {
+        "value": 0.39689012,
+        "ci95": [
+          0.374375495,
+          0.421503917
+        ]
+      },
+      "gap": {
+        "value": -0.132692095,
+        "ci95": [
+          -0.158281915,
+          -0.103512684
+        ]
+      },
+      "bands": [
+        {
+          "lo": 0.5,
+          "hi": 0.55,
+          "n": 64,
+          "mean_conf": 0.522778076,
+          "hit_rate": 0.53125
+        },
+        {
+          "lo": 0.55,
+          "hi": 0.6,
+          "n": 43,
+          "mean_conf": 0.576006824,
+          "hit_rate": 0.627906977
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.65,
+          "n": 46,
+          "mean_conf": 0.622298244,
+          "hit_rate": 0.782608696
+        },
+        {
+          "lo": 0.65,
+          "hi": 0.7,
+          "n": 43,
+          "mean_conf": 0.675846284,
+          "hit_rate": 0.930232558
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.75,
+          "n": 58,
+          "mean_conf": 0.726033019,
+          "hit_rate": 0.896551724
+        },
+        {
+          "lo": 0.75,
+          "hi": 0.8,
+          "n": 81,
+          "mean_conf": 0.77374616,
+          "hit_rate": 0.938271605
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.85,
+          "n": 84,
+          "mean_conf": 0.825039203,
+          "hit_rate": 0.976190476
+        },
+        {
+          "lo": 0.85,
+          "hi": 0.9,
+          "n": 61,
+          "mean_conf": 0.872523771,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 20,
+          "mean_conf": 0.92150778,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.95,
+          "hi": 1,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        }
+      ],
+      "bands_fine": [
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 107,
+          "mean_conf": 0.544169068,
+          "hit_rate": 0.570093458
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 89,
+          "mean_conf": 0.648169769,
+          "hit_rate": 0.853932584
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 139,
+          "mean_conf": 0.75383708,
+          "hit_rate": 0.920863309
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 145,
+          "mean_conf": 0.84501547,
+          "hit_rate": 0.986206897
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 20,
+          "mean_conf": 0.92150778,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.95,
+          "hi": 0.99,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.99,
+          "hi": 0.999,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.999,
+          "hi": 0.9999,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.9999,
+          "hi": 1,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        }
+      ],
+      "danger_zone": {
+        "threshold": 0.95,
+        "n": 0,
+        "wrong": 0,
+        "hit_rate": null,
+        "ci95": [
+          null,
+          null
+        ]
+      },
+      "correction": {
+        "method": "temperature",
+        "params": {
+          "T": 0.408556882
+        },
+        "fit_n": 250,
+        "eval_n": 250,
+        "ece_before": 0.137563867,
+        "ece_after": 0.047357191,
+        "nll_before": 0.396742248,
+        "nll_after": 0.30872666
+      },
+      "low_mass_n": 0,
+      "warnings": []
+    },
+    {
+      "model": "lfm2-d1-2b",
+      "quant": "Q4_K_M",
+      "host": "mac-metal",
+      "method": "systemone",
+      "set": "boolq",
+      "n": 600,
+      "n_clusters": 600,
+      "accuracy": {
+        "value": 0.888333333,
+        "ci95": [
+          0.865,
+          0.911666667
+        ]
+      },
+      "ece": {
+        "value": 0.048691142,
+        "ci95": [
+          0.039668845,
+          0.076777708
+        ]
+      },
+      "ece_fine": {
+        "value": 0.048691142,
+        "ci95": [
+          0.030373647,
+          0.073401376
+        ]
+      },
+      "brier": {
+        "value": 0.08770983,
+        "ci95": [
+          0.074709772,
+          0.101765123
+        ]
+      },
+      "log_loss": {
+        "value": 0.292679278,
+        "ci95": [
+          0.258315797,
+          0.327944044
+        ]
+      },
+      "gap": {
+        "value": -0.048691142,
+        "ci95": [
+          -0.070629785,
+          -0.022963897
+        ]
+      },
+      "bands": [
+        {
+          "lo": 0.5,
+          "hi": 0.55,
+          "n": 28,
+          "mean_conf": 0.526238641,
+          "hit_rate": 0.571428571
+        },
+        {
+          "lo": 0.55,
+          "hi": 0.6,
+          "n": 22,
+          "mean_conf": 0.57586791,
+          "hit_rate": 0.636363636
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.65,
+          "n": 35,
+          "mean_conf": 0.623416694,
+          "hit_rate": 0.742857143
+        },
+        {
+          "lo": 0.65,
+          "hi": 0.7,
+          "n": 37,
+          "mean_conf": 0.674875671,
+          "hit_rate": 0.783783784
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.75,
+          "n": 37,
+          "mean_conf": 0.72781945,
+          "hit_rate": 0.72972973
+        },
+        {
+          "lo": 0.75,
+          "hi": 0.8,
+          "n": 37,
+          "mean_conf": 0.775759005,
+          "hit_rate": 0.918918919
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.85,
+          "n": 59,
+          "mean_conf": 0.828032916,
+          "hit_rate": 0.847457627
+        },
+        {
+          "lo": 0.85,
+          "hi": 0.9,
+          "n": 68,
+          "mean_conf": 0.87789323,
+          "hit_rate": 0.941176471
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 104,
+          "mean_conf": 0.929286288,
+          "hit_rate": 0.980769231
+        },
+        {
+          "lo": 0.95,
+          "hi": 1,
+          "n": 173,
+          "mean_conf": 0.975506914,
+          "hit_rate": 0.988439306
+        }
+      ],
+      "bands_fine": [
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 50,
+          "mean_conf": 0.548075519,
+          "hit_rate": 0.6
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 72,
+          "mean_conf": 0.64986089,
+          "hit_rate": 0.763888889
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 74,
+          "mean_conf": 0.751789228,
+          "hit_rate": 0.824324324
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 127,
+          "mean_conf": 0.854729777,
+          "hit_rate": 0.897637795
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 104,
+          "mean_conf": 0.929286288,
+          "hit_rate": 0.980769231
+        },
+        {
+          "lo": 0.95,
+          "hi": 0.99,
+          "n": 145,
+          "mean_conf": 0.972191815,
+          "hit_rate": 0.986206897
+        },
+        {
+          "lo": 0.99,
+          "hi": 0.999,
+          "n": 28,
+          "mean_conf": 0.992674389,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.999,
+          "hi": 0.9999,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.9999,
+          "hi": 1,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        }
+      ],
+      "danger_zone": {
+        "threshold": 0.95,
+        "n": 173,
+        "wrong": 2,
+        "hit_rate": 0.988439306,
+        "ci95": [
+          0.970414201,
+          1
+        ]
+      },
+      "correction": {
+        "method": "temperature",
+        "params": {
+          "T": 0.825712579
+        },
+        "fit_n": 300,
+        "eval_n": 300,
+        "ece_before": 0.058292674,
+        "ece_after": 0.044781843,
+        "nll_before": 0.263380477,
+        "nll_after": 0.247724804
+      },
+      "low_mass_n": 0,
+      "warnings": []
+    },
+    {
+      "model": "lfm2-d1-2b",
+      "quant": "Q4_K_M",
+      "host": "mac-metal",
+      "method": "systemone",
+      "set": "fresh-news",
+      "n": 201,
+      "n_clusters": 18,
+      "accuracy": {
+        "value": 0.995024876,
+        "ci95": [
+          0.984848485,
+          1
+        ]
+      },
+      "ece": {
+        "value": 0.037388253,
+        "ci95": [
+          0.028703573,
+          0.050093075
+        ]
+      },
+      "ece_fine": {
+        "value": 0.037388253,
+        "ci95": [
+          0.028785353,
+          0.050881807
+        ]
+      },
+      "brier": {
+        "value": 0.006583612,
+        "ci95": [
+          0.003445239,
+          0.010486131
+        ]
+      },
+      "log_loss": {
+        "value": 0.045755773,
+        "ci95": [
+          0.032490169,
+          0.05890236
+        ]
+      },
+      "gap": {
+        "value": -0.03543459,
+        "ci95": [
+          -0.04740264,
+          -0.022458852
+        ]
+      },
+      "bands": [
+        {
+          "lo": 0.5,
+          "hi": 0.55,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.55,
+          "hi": 0.6,
+          "n": 2,
+          "mean_conf": 0.598171575,
+          "hit_rate": 0.5
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.65,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.65,
+          "hi": 0.7,
+          "n": 1,
+          "mean_conf": 0.689049849,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.75,
+          "n": 1,
+          "mean_conf": 0.729299582,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.75,
+          "hi": 0.8,
+          "n": 3,
+          "mean_conf": 0.782238696,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.85,
+          "n": 4,
+          "mean_conf": 0.81583126,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.85,
+          "hi": 0.9,
+          "n": 13,
+          "mean_conf": 0.883984298,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 26,
+          "mean_conf": 0.929101944,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.95,
+          "hi": 1,
+          "n": 151,
+          "mean_conf": 0.986784551,
+          "hit_rate": 1
+        }
+      ],
+      "bands_fine": [
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 2,
+          "mean_conf": 0.598171575,
+          "hit_rate": 0.5
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 1,
+          "mean_conf": 0.689049849,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 4,
+          "mean_conf": 0.769003918,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 17,
+          "mean_conf": 0.867948289,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 26,
+          "mean_conf": 0.929101944,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.95,
+          "hi": 0.99,
+          "n": 72,
+          "mean_conf": 0.977473642,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.99,
+          "hi": 0.999,
+          "n": 79,
+          "mean_conf": 0.995270443,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.999,
+          "hi": 0.9999,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.9999,
+          "hi": 1,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        }
+      ],
+      "danger_zone": {
+        "threshold": 0.95,
+        "n": 151,
+        "wrong": 0,
+        "hit_rate": 1,
+        "ci95": [
+          1,
+          1
+        ]
+      },
+      "correction": {
+        "method": "temperature",
+        "params": {
+          "T": 0.401542042
+        },
+        "fit_n": 102,
+        "eval_n": 99,
+        "ece_before": 0.045582746,
+        "ece_after": 0.006611889,
+        "nll_before": 0.049676969,
+        "nll_after": 0.00718639
+      },
+      "low_mass_n": 0,
+      "warnings": [
+        "only 18 clusters; bootstrap intervals are approximate",
+        "no wrong answers among the 151 at 95% or more; the interval collapses to 1, but the true error rate could still be about 2.0% (rule of three)"
+      ]
+    },
+    {
+      "model": "lfm2-d1-2b",
+      "quant": "Q4_K_M",
+      "host": "mac-metal",
+      "method": "systemone",
+      "set": "sms-spam",
+      "n": 500,
+      "n_clusters": 500,
+      "accuracy": {
+        "value": 0.932,
+        "ci95": [
+          0.91,
+          0.952
+        ]
+      },
+      "ece": {
+        "value": 0.059082832,
+        "ci95": [
+          0.045628605,
+          0.080505318
+        ]
+      },
+      "ece_fine": {
+        "value": 0.058161091,
+        "ci95": [
+          0.042627766,
+          0.077821524
+        ]
+      },
+      "brier": {
+        "value": 0.061083724,
+        "ci95": [
+          0.04872763,
+          0.074171373
+        ]
+      },
+      "log_loss": {
+        "value": 0.229632755,
+        "ci95": [
+          0.191702906,
+          0.273719788
+        ]
+      },
+      "gap": {
+        "value": -0.058161091,
+        "ci95": [
+          -0.078785683,
+          -0.036674462
+        ]
+      },
+      "bands": [
+        {
+          "lo": 0.5,
+          "hi": 0.55,
+          "n": 12,
+          "mean_conf": 0.519202935,
+          "hit_rate": 0.5
+        },
+        {
+          "lo": 0.55,
+          "hi": 0.6,
+          "n": 13,
+          "mean_conf": 0.581871698,
+          "hit_rate": 0.769230769
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.65,
+          "n": 19,
+          "mean_conf": 0.622682638,
+          "hit_rate": 0.842105263
+        },
+        {
+          "lo": 0.65,
+          "hi": 0.7,
+          "n": 18,
+          "mean_conf": 0.677401096,
+          "hit_rate": 0.777777778
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.75,
+          "n": 19,
+          "mean_conf": 0.726850203,
+          "hit_rate": 0.789473684
+        },
+        {
+          "lo": 0.75,
+          "hi": 0.8,
+          "n": 28,
+          "mean_conf": 0.77361825,
+          "hit_rate": 0.857142857
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.85,
+          "n": 34,
+          "mean_conf": 0.828219235,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.85,
+          "hi": 0.9,
+          "n": 59,
+          "mean_conf": 0.877565604,
+          "hit_rate": 0.949152542
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 121,
+          "mean_conf": 0.925803087,
+          "hit_rate": 0.966942149
+        },
+        {
+          "lo": 0.95,
+          "hi": 1,
+          "n": 177,
+          "mean_conf": 0.969892848,
+          "hit_rate": 0.983050847
+        }
+      ],
+      "bands_fine": [
+        {
+          "lo": 0.5,
+          "hi": 0.6,
+          "n": 25,
+          "mean_conf": 0.551790692,
+          "hit_rate": 0.64
+        },
+        {
+          "lo": 0.6,
+          "hi": 0.7,
+          "n": 37,
+          "mean_conf": 0.649302428,
+          "hit_rate": 0.810810811
+        },
+        {
+          "lo": 0.7,
+          "hi": 0.8,
+          "n": 47,
+          "mean_conf": 0.754712018,
+          "hit_rate": 0.829787234
+        },
+        {
+          "lo": 0.8,
+          "hi": 0.9,
+          "n": 93,
+          "mean_conf": 0.859524996,
+          "hit_rate": 0.967741935
+        },
+        {
+          "lo": 0.9,
+          "hi": 0.95,
+          "n": 121,
+          "mean_conf": 0.925803087,
+          "hit_rate": 0.966942149
+        },
+        {
+          "lo": 0.95,
+          "hi": 0.99,
+          "n": 165,
+          "mean_conf": 0.968222678,
+          "hit_rate": 0.981818182
+        },
+        {
+          "lo": 0.99,
+          "hi": 0.999,
+          "n": 12,
+          "mean_conf": 0.992857688,
+          "hit_rate": 1
+        },
+        {
+          "lo": 0.999,
+          "hi": 0.9999,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        },
+        {
+          "lo": 0.9999,
+          "hi": 1,
+          "n": 0,
+          "mean_conf": null,
+          "hit_rate": null
+        }
+      ],
+      "danger_zone": {
+        "threshold": 0.95,
+        "n": 177,
+        "wrong": 3,
+        "hit_rate": 0.983050847,
+        "ci95": [
+          0.960893855,
+          1
+        ]
+      },
+      "correction": {
+        "method": "temperature",
+        "params": {
+          "T": 0.746801653
+        },
+        "fit_n": 250,
+        "eval_n": 250,
+        "ece_before": 0.06777976,
+        "ece_after": 0.047097242,
+        "nll_before": 0.218589705,
+        "nll_after": 0.198539878
+      },
+      "low_mass_n": 0,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}
