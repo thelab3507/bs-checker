@@ -12,7 +12,7 @@ These are the published numbers behind the writeup in [`docs/writeup.md`](../doc
 
 ## How it was produced
 
-- **Machine:** a MacBook Pro running macOS. Host label `mac-metal`.
+- **Machine:** a Mac running macOS. Host label `mac-metal`.
 - **Server:** `llama-server` build 12110 (Homebrew), Metal backend.
 - **When:** d1 and Gemma on 13 November 2026 (33 to 39 ms per answer). Kev-4B was added on 16 November 2026 on the same Mac and the same `llama-server` build, with the same host label (91 ms per answer).
 - **Questions:** the three files in [`data/`](../data/README.md): BoolQ (600), SMS Spam (500) and fresh-news (201).

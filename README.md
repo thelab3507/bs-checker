@@ -1,14 +1,18 @@
 # Attempting to call BS on open weight decision models
 
+I wanted to call BS on models that say "92% sure". Maybe it's really 50% and they're just trained to sound confident. So I built this to check.
+
 When a decision model says "92% sure", is it right 92% of the time? BS Meter is a command-line tool that checks. It asks a model a few hundred yes/no questions with known answers, then compares how confident each answer was with how often it was right, and writes one self-contained HTML report with charts, error bars and a plain verdict: overconfident, underconfident or honest.
 
 ## Why this exists
 
-Decision models answer a yes/no question or pick an option and attach a confidence number, and people are starting to build automation on it: "if over 90% sure, approve; otherwise ask a human". A [Hightouch post](https://hightouch.com/blog/llm-judges-identity-resolution) credited the edge of TypeSafe's Jev, a closed, paid decision model, to its calibrated confidence. Jev costs money, so BS Meter does not test it. It tests the open decision models you can run yourself, and asks whether their numbers are honest.
+Decision models answer a yes/no question or pick an option and attach a confidence number, and people are starting to build automation on it: "if over 90% sure, approve; otherwise ask a human". A [Hightouch post](https://hightouch.com/blog/llm-judges-identity-resolution) credited the edge of TypeSafe's Jev, a closed, paid decision model, to its calibrated confidence. I didn't test Jev because it costs money, so I tested the open decision models you can run yourself. They mostly get used for simple delegated tasks, so I also wanted a first read on whether they could handle heavier ones.
 
 ## The first results
 
 Three small models, all Q4_K_M, on BoolQ, an SMS spam set and a small fresh-news set: Liquid d1-2B and Kev-4B (decision models) and Gemma 4 E2B (an ordinary chat model forced to say Yes or No, as a control).
+
+My suspicion held up for Gemma, not for the decision models.
 
 1. **The decision models do not overstate their confidence.** d1-2B is 5 to 6 points underconfident on BoolQ and SMS spam. Kev-4B is 2 points under on BoolQ (no miscalibration detected) and 13 points under on SMS spam, where none of its answers reached 95% confidence.
 2. **The control is badly overconfident.** Gemma claims 95% or more on 533 of 600 BoolQ answers and is right on 75% of them.
@@ -41,7 +45,7 @@ go run ./cmd/bsmeter report -analysis analysis.json -out report.html -csv-dir cs
 - `run` starts one `llama-server` per model, one at a time, and appends every answer to the results file as it arrives. If it crashes or your computer sleeps, run the same command again and it resumes where it stopped.
 - `analyze -quant Q4_K_M` analyses only rows of that quantisation (repeatable). The default is every quantisation in the file.
 - `-limit 20` asks only the first 20 questions of each set, which is a quick way to check your setup. `-only kev-4b:Q4_K_M` runs one model.
-- The mean time per answer on the MacBook Pro the published run came from was 37 to 39 milliseconds for d1 and Gemma and 91 for Kev, so the full run of the bundled models and sets (3,903 answers) takes a few minutes.
+- The mean time per answer on the Mac the published run came from was 37 to 39 milliseconds for d1 and Gemma and 91 for Kev, so the full run of the bundled models and sets (3,903 answers) takes a few minutes.
 
 ### Testing your own model
 
@@ -96,9 +100,10 @@ The rules were written down before the first full run.
 ## Known limitations
 
 - Yes/no questions only. Two options per question.
-- The published result covers three small models (one Q4_K_M file each), one MacBook Pro and one llama.cpp build. See the limits in the [writeup](docs/writeup.md).
+- The published result covers three small models (one Q4_K_M file each), one Mac and one llama.cpp build. See the limits in the [writeup](docs/writeup.md).
 - Different confidence mechanisms (the native `/v1/systemone` endpoint of d1 and Kev, and Gemma's token probabilities) are not comparable with each other. d1 and Kev share one, so they can be compared with each other, but two models and three sets do not make a ranking.
-- Jev, the paid decision model behind the Hightouch post, is not tested.
+- I haven't tested Jev.
+- So far it's only the lightest kind of task: yes/no questions about short texts.
 - It measures whether the number can be trusted, not whether the answer is right.
 - The tool has been run end to end on macOS (Metal). On Windows with an NVIDIA GPU it ran a partial check. The test suite runs on Linux, macOS and Windows in CI.
 
@@ -120,7 +125,7 @@ Details and citations are in [`data/README.md`](data/README.md).
 
 ## How this was made
 
-Built with the help of an AI coding assistant (Anthropic's Claude Code), which wrote most of the code, the tests and the fresh-news questions. The question labels were re-read against their passages, and the raw answers, the analysis and the report can all be regenerated from the files in this repository (see [`results/README.md`](results/README.md)).
+I came up with the question, picked the models and test sets, and set the verdict rules before the full run. An AI coding assistant (Anthropic's Claude Code) wrote most of the code, the tests and the fresh-news questions, and I reviewed the results and the docs. The labels were re-read against their passages, and the analysis and report can be regenerated from the raw answers (see [`results/README.md`](results/README.md)).
 
 ## Repository layout
 

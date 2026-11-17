@@ -1,16 +1,18 @@
-# Do decision models deliver honest confidence? 
+# Attempting to call BS on open weight decision models
 
 A new kind of model answers a yes/no question and attaches a confidence number: "Yes, 92% sure". People are starting to build automation on that number ("if it is over 90% sure, approve it; otherwise ask a human"). That only works if the number is honest: when a model says 92%, it should be right about 92% of the time. 
 
 I was curious to see and call BS on these models that claimed to be "92% sure" as we all know that ai likes to hallucinate and maybe its only 50% sure but was trained to only output 90% confident no matter what. Even tho the current implementations of decision models are quite simple and their use cases mostly come from delegated tasks, i wanted to see if they can be relied on for even more heavier/extensive tasks.
 
-The idea for this project came from a Hightouch post, [LLM judges for identity resolution](https://hightouch.com/blog/llm-judges-identity-resolution). It credits the edge of TypeSafe's Jev, a closed, paid decision model, to its calibrated confidence: its mistakes come with low confidence, so the uncertain middle can be escalated to a bigger model. Jev costs money, so it is not tested here. BS Meter tests the open decision models that run on a laptop, and asks whether their confidence numbers are honest.
+The idea for this project came from a Hightouch post, [LLM judges for identity resolution](https://hightouch.com/blog/llm-judges-identity-resolution). It credits the edge of TypeSafe's Jev, a closed, paid decision model, to its calibrated confidence: its mistakes come with low confidence, so the uncertain middle can be escalated to a bigger model. I didn't test Jev because it costs money, so I can't say anything about it. BS Meter tests the open decision models you can run on a laptop.
 
 ## The answers
 
 1. **The two decision models do not overstate their confidence. If anything they understate it.** Liquid d1-2B is 5 to 6 points underconfident on both of the sets big enough to judge. Kev-4B is 2 points under on BoolQ (the interval just spans zero, so no miscalibration is detected) and 13 points under on SMS spam. Though I was hoping they would be confident but wrong so i could prove a point.
 2. **The ordinary chat model forced to say Yes or No is badly overconfident.** Gemma 4 E2B, used as the control, claims 95% or more on 533 of its 600 BoolQ answers and is right on 75% of them.
 3. **Underconfidence is the cheaper failure.** An underconfident model wastes escalations; an overconfident one lets wrong answers through. But it can still break a rule: Kev never reached 95% on any SMS spam answer, so a "95% and up is auto-approved" rule would never fire on that set.
+
+What surprised me most: how accurate the decision models were. Yes/no is literally their job, but I figured they'd still trip up here and there.
 
 ## 1. When a model is confident, is it correct?
 
@@ -55,24 +57,24 @@ Where a run was already close to honest, the correction does little or makes it 
 - **Two ways to read confidence.** d1 and Kev are purpose-built decision models: llama.cpp's `/v1/systemone` endpoint returns a probability for each option. Gemma is an ordinary chat model, so it is given the passage and question and asked to answer with one word, Yes or No, with thinking turned off. The probabilities of the Yes and No tokens are read and rescaled to sum to 1. In both cases the confidence is the probability of the answer the model chose, so it is always between 50% and 100%.
 - **Comparing claims with outcomes.** Answers are grouped into bands by confidence, and each band's average claimed confidence is compared with how often the model was right.
 - **Error bars.** Everything has a 95% interval from 1,000 bootstrap resamples. Fresh-news is resampled by story.
-- **A rule fixed in advance.** Before the first full run, the project wrote down what would count as "overconfident", "underconfident", "honest" and "too few answers to judge" (see "How verdicts are decided" in the README). The verdict comes from the interval of the signed gap.
-- **Kev was added later.** d1 and Gemma were run first. Kev was added after those results were seen, with the same rules, the same questions and the same settings, and nothing was tuned for it.
+- **A rule fixed in advance.** I wrote down what counts as "overconfident", "underconfident" and "honest" before the first full run, so I couldn't bend the rules to fit the results (see "How verdicts are decided" in the README).
+- **Kev was added later.** I added Kev after seeing the d1 and Gemma results, with the same rules and settings. I didn't tune anything for it.
 
-One MacBook Pro, one llama.cpp build (12110, Metal), 3,903 analysed answers (1,301 per model). The mean time per answer was 37 milliseconds for d1, 39 for Gemma and 91 for Kev. d1 and Gemma ran on 13 November 2026 and Kev on 16 November. Full provenance, including model file hashes, is in [`results/README.md`](../results/README.md).
+One Mac, one llama.cpp build (12110, Metal), 3,903 analysed answers (1,301 per model). The mean time per answer was 37 milliseconds for d1, 39 for Gemma and 91 for Kev. d1 and Gemma ran on 13 November 2026 and Kev on 16 November. Full provenance, including model file hashes, is in [`results/README.md`](../results/README.md).
 
 ## What went wrong or changed along the way
 
-- **Models were dropped or left out.** Clef-Flash was parked: its Q4_K_M file is 6.73 GB, a marginal fit for an 8 GB graphics card. Gemma E4B was dropped. Jev was left out because it costs money.
-- **d1 rejected long prompts.** At llama.cpp's default batch size, d1-2B returns an error for any prompt over 512 tokens. The longest BoolQ passage is 666. The runner now launches the server with `-b 2048 -ub 2048`. Kev ran on those same default flags with nothing extra.
-- **ECE has no sign.** It says a model is miscalibrated but not whether it is over- or underconfident. A signed gap (average confidence minus accuracy) was added after the first 20-answer smoke test and before the full run, so that "overconfident" and "underconfident" could be said honestly. The verdicts come from that gap.
-- **fresh-news was too small to judge.** 201 questions looked like enough, but they come in 18 stories. The rule held and gave no verdict.
-- **An early impression was wrong.** The first 20 easy questions made Gemma look nearly perfect. On the real BoolQ set it is 72% right while still extremely sure of itself: 62% of its BoolQ answers, and 85% of its fresh-news answers, sit at 99.99% confidence or higher. A baseline figure quoted during development also came from different questions than the later check, and was corrected.
-- **Windows needed a fix and a newer llama.cpp.** Three of the project's own tests asserted Unix error wording and failed on Windows; they now check the file path instead. The PC's llama.cpp (b10696) was updated to b12344 before the checks, because d1 support was not guaranteed in the older build.
-- **Some news topics were dropped.** Searches for several fresh-news topics (the F1 title race, Bitcoin and gold, COP31, Gaza and others) returned too little to build reliable questions.
+- **Some models didn't make it.** Clef-Flash is too big for an 8 GB graphics card, I dropped Gemma E4B, and I skipped Jev because it costs money.
+- **d1 choked on long prompts,** so I raised llama.cpp's batch size. Kev was fine.
+- **ECE can't say which way a model is wrong,** so I added a signed gap before the full run.
+- **fresh-news was too small.** I figured 201 questions was plenty, but they come from only 18 stories, so no verdict.
+- **Gemma fooled me at first.** My first 20 easy questions made it look nearly perfect, but on the real BoolQ set it's only 72% right and still super sure of itself.
+- **A few things broke on Windows, and a few news topics didn't give enough to work with,** so I fixed or dropped them.
 
 ## Limits
 
-- **Three small models, one machine.** Gemma 4 E2B, Liquid d1-2B and Kev-4B, each as one Q4_K_M file, on one MacBook Pro with one llama.cpp build. Other sizes, other quantisations and other machines may differ.
+- **This is the lightest kind of task.** I wanted to know about heavier work, but this only tests yes/no questions on short texts. It's a first step.
+- **Three small models, one machine.** Gemma 4 E2B, Liquid d1-2B and Kev-4B, each as one Q4_K_M file, on one Mac with one llama.cpp build. Other sizes, other quantisations and other machines may differ.
 - **Jev was not tested.** It is closed and paid, and the Hightouch post's claims about it are not checked here. These results say nothing about how well calibrated it is.
 - **Not a ranking.** d1 and Kev share a confidence mechanism but beat each other on different sets, and Gemma uses a different mechanism, so "d1 is better calibrated than Gemma" is not something these results support.
 - **Honesty is not accuracy.** A model can be perfectly calibrated and still often wrong, if it says so. This measures whether the number can be trusted, not whether the answer is right.
@@ -84,7 +86,7 @@ One MacBook Pro, one llama.cpp build (12110, Metal), 3,903 analysed answers (1,3
 ## Future work
 
 - **Jev**, if a cheap one-off run is worth paying for.
-- **Clef-Flash**, a marginal fit for the 8 GB card this was built for (6.73 GB at Q4_K_M).
+- **Clef-Flash**, a marginal fit for an 8 GB graphics card (6.73 GB at Q4_K_M).
 - A rephrasing test (does confidence swing across three phrasings of the same question?) and an "I don't know" test (does confidence drop on unanswerable questions?).
 
 ## Run it yourself
@@ -98,3 +100,5 @@ go run ./cmd/bsmeter report -analysis my-analysis.json -out my-report.html
 You need Go, a recent `llama-server` with `/v1/systemone` support (build 12110 on the Mac and 12344 on Windows were used) and the model files, which `llama-server` downloads. The model list and your own question files are plain JSON and JSONL: see the [README](../README.md). To check the published numbers, follow the steps in [`results/README.md`](../results/README.md).
 
 Code is MIT-licensed. The BoolQ questions are CC BY-SA 3.0 and the SMS Spam messages are CC BY 4.0; see `data/README.md`.
+
+I'm one person with one machine, so I've probably missed things. If you spot a mistake, open an issue.
