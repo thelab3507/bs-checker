@@ -1,14 +1,14 @@
-# Do decision models deliver honest confidence? First results from BS Meter
+# Do decision models deliver honest confidence? 
 
-A new kind of model answers a yes/no question and attaches a confidence number: "Yes, 92% sure". People are starting to build automation on that number ("if it is over 90% sure, approve it; otherwise ask a human"). That only works if the number is honest: when a model says 92%, it should be right about 92% of the time.
+A new kind of model answers a yes/no question and attaches a confidence number: "Yes, 92% sure". People are starting to build automation on that number ("if it is over 90% sure, approve it; otherwise ask a human"). That only works if the number is honest: when a model says 92%, it should be right about 92% of the time. 
+
+I was curious to see and call BS on these models that claimed to be "92% sure" as we all know that ai likes to hallucinate and maybe its only 50% sure but was trained to only output 90% confident no matter what. Even tho the current implementations of decision models are quite simple and their use cases mostly come from delegated tasks, i wanted to see if they can be relied on for even more heavier/extensive tasks.
 
 The idea for this project came from a Hightouch post, [LLM judges for identity resolution](https://hightouch.com/blog/llm-judges-identity-resolution). It credits the edge of TypeSafe's Jev, a closed, paid decision model, to its calibrated confidence: its mistakes come with low confidence, so the uncertain middle can be escalated to a bigger model. Jev costs money, so it is not tested here. BS Meter tests the open decision models that run on a laptop, and asks whether their confidence numbers are honest.
 
-This is what it found on its first run, on three small models.
-
 ## The answers
 
-1. **The two decision models do not overstate their confidence. If anything they understate it.** Liquid d1-2B is 5 to 6 points underconfident on both of the sets big enough to judge. Kev-4B is 2 points under on BoolQ (the interval just spans zero, so no miscalibration is detected) and 13 points under on SMS spam.
+1. **The two decision models do not overstate their confidence. If anything they understate it.** Liquid d1-2B is 5 to 6 points underconfident on both of the sets big enough to judge. Kev-4B is 2 points under on BoolQ (the interval just spans zero, so no miscalibration is detected) and 13 points under on SMS spam. Though I was hoping they would be confident but wrong so i could prove a point.
 2. **The ordinary chat model forced to say Yes or No is badly overconfident.** Gemma 4 E2B, used as the control, claims 95% or more on 533 of its 600 BoolQ answers and is right on 75% of them.
 3. **Underconfidence is the cheaper failure.** An underconfident model wastes escalations; an overconfident one lets wrong answers through. But it can still break a rule: Kev never reached 95% on any SMS spam answer, so a "95% and up is auto-approved" rule would never fire on that set.
 
